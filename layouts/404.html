@@ -1,0 +1,17 @@
+{{ define "main" }}
+    <div class="not-found-card">
+        <h1 class="article-title">{{ T "notFound.title" }}</h1>
+        <h2 class="article-subtitle">{{ T "notFound.subtitle" }}</h2>
+        <br>
+        <form class="search-form widget" {{ with .OutputFormats.Get "json" -}}data-json="{{ .Permalink }}" {{- end }}>
+            <p>
+                <label>{{ T "search.title" }}</label>
+                <input name="keyword" required placeholder="{{ T `search.placeholder` }}" />
+                <button title="{{ T `search.title` }}">
+                    {{ partial "helper/icon" "search" }}
+                </button>
+            </p>
+        </form>
+    </div>
+    {{ partialCached "footer/footer" . }}
+{{ end }}

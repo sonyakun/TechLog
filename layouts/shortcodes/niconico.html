@@ -1,0 +1,11 @@
+{{ $vid := (.Get 0) }}
+
+<div class="video-wrapper">
+    <iframe src="https://embed.nicovideo.jp/watch/{{ $vid }}"
+            scrolling="no"
+            frameborder="no"
+            framespacing="0"
+            allowfullscreen="true"
+    >
+    </iframe>
+</div>

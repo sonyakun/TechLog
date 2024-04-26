@@ -1,0 +1,4 @@
+# Permalinks format of each content section
+post = "/:sections/:year/:month/:day/:slug/"
+page = "/:slug/"
+note = "/:sections/:year/:month/:day/:slug/"

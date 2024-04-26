@@ -1,0 +1,5 @@
+<!-- Code by https://snitch0.github.io/p/creating-hugo-shortcode/ -->
+{{ $type := .Get 0 }}
+{{ printf "<blockquote class=\"md-hint %s\">" $type | htmlUnescape | safeHTML }}
+{{ .Inner | safeHTML }}
+{{ printf "</blockquote>" | htmlUnescape | safeHTML }}
