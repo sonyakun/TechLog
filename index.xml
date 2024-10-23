@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TechLog</title><link>https://sonyakun.github.io/TechLog/</link><description>Recent content on TechLog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Sat, 27 Apr 2024 16:43:38 +0000</lastBuildDate><atom:link href="https://sonyakun.github.io/TechLog/index.xml" rel="self" type="application/rss+xml"/><item><title>自作ソフトウェア</title><link>https://sonyakun.github.io/TechLog/note/2024/04/27/mysoftwares/</link><pubDate>Sat, 27 Apr 2024 16:43:38 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/note/2024/04/27/mysoftwares/</guid><description>&lt;h2 id="brightness-controler">Brightness-Controler
+&lt;/h2>&lt;p>デスクトップ版のWindowsだといちいちモニター側を操作しないと輝度調節ができないのが嫌なので作ったやつです。基本的に僕だけが使う前提なのでマルチモニターには対応していません。ウィンドウを閉じるとタスクトレイにアイコンが表示されるのでそれを右クリックして「Show UI」を押すと再度ウィンドウが表示されます。証明書がないのとNuitkaでビルドしているためアンチウィルスソフトに隔離される可能性があります。&lt;/p>
+&lt;p>src以下にあるのはソースコードです。&lt;a class="link" href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener"
+>MITライセンス&lt;/a>の範囲内でご自由にご利用ください。&lt;/p>
+&lt;p>ちなみにGitHubからも利用できます。&lt;a class="link" href="https://github.com/sonyakun/Brightness-Controler" target="_blank" rel="noopener"
+>ここ&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/72x72/1f5a5.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>↑使ってるアイコンの画像はTwemojiのやつです&lt;/p>
+&lt;p>&lt;a class="link" href="https://drive.google.com/file/d/147a4-G6v_Z6BFLNtSK3HG8ARXzK3Bzyf/view?usp=sharing" target="_blank" rel="noopener"
+>Download&lt;/a>&lt;/p></description></item><item><title>Go製の静的サイトジェネレーター「Hugo」を使ってブログサイトを構築する</title><link>https://sonyakun.github.io/TechLog/post/2024/04/26/built-blog-hugo/</link><pubDate>Fri, 26 Apr 2024 14:35:53 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/post/2024/04/26/built-blog-hugo/</guid><description>&lt;p>ブログに利用しているSSGをHugoに移行したので記事にします。&lt;/p>
+&lt;h2 id="hugoとは">Hugoとは
+&lt;/h2>&lt;p>Goで書かれた「ウェブサイトを構築するための世界最速のフレームワーク」 (gohugo.ioより)らしいです。&lt;/p>
+&lt;h3 id="テーマ">テーマ
+&lt;/h3>&lt;p>&lt;a class="link" href="https://themes.gohugo.io/" target="_blank" rel="noopener"
+>公式サイト&lt;/a>はあまりおすすめしません。人気順に出来なかったりします。&lt;a class="link" href="https://github.com/topics/hugo-theme" target="_blank" rel="noopener"
+>GitHubのトピック&lt;/a>で探すのが個人的におすすめです。&lt;/p>
+&lt;p>このブログでは&lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>Stack&lt;/a>を利用しています。&lt;/p>
+&lt;h3 id="プラグイン-アドオン">プラグイン (アドオン)
+&lt;/h3>&lt;p>Hugoにそれらしき項目は見当たりませんでした。
+でも、標準でサイトマップなどを生成することができるので機能には困らないと思います。&lt;/p>
+&lt;h3 id="構築">構築
+&lt;/h3>&lt;blockquote>
+&lt;p>ほとんど&lt;a class="link" href="https://gohugo.io/getting-started/quick-start/" target="_blank" rel="noopener"
+>Hugoのドキュメント&lt;/a>からの抜粋です。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="必要なもの">必要なもの
+&lt;/h4>&lt;ul>
+&lt;li>Git&lt;/li>
+&lt;/ul>
+&lt;h4 id="インストール">インストール
+&lt;/h4>&lt;p>ここではWindowsで利用する場合の手順を書きます。他のOSの場合は&lt;a class="link" href="https://gohugo.io/installation/" target="_blank" rel="noopener"
+>公式サイト&lt;/a>から確認してください。&lt;/p>
+&lt;h5 id="scoopを使う-推奨">scoopを使う (推奨)
+&lt;/h5>&lt;p>scoopを使う場合は、勝手にパスが通るのでおすすめです。&lt;/p>
+&lt;p>以下のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">scoop install hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="サイトを作成する">サイトを作成する
+&lt;/h4>&lt;blockquote class="md-hint warning">
+&lt;p>⚠ &lt;strong>注意&lt;/strong>&lt;/p>
+&lt;p>Windowsユーザーの場合はWindows PowerShellやコマンドプロンプトは利用しないで&lt;a class="link" href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4" target="_blank" rel="noopener"
+>PowerShell&lt;/a>や&lt;a class="link" href="https://gitforwindows.org/" target="_blank" rel="noopener"
+>Git Bash&lt;/a>を利用してください。&lt;/p>
+&lt;p>※ここで言う&lt;a class="link" href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4" target="_blank" rel="noopener"
+>PowerShell&lt;/a>はWindows PowerShellとは異なるアプリケーションです。&lt;/p>
+&lt;/blockquote>
+&lt;p>以下のコマンドを実行してHugoでウェブサイトを作成します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo new site hugo-site
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>作成後、以下のコマンドで作成したウェブサイトのディレクトリに移動します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cd hugo-site
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ディレクトリはこのような構造になっていると思います。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── archetypes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └── default.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── assets
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── content
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── i18n
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── layouts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── static
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── themes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── hugo.toml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>この状態で&lt;code>hugo serve&lt;/code>を実行しても何もでてきません (正確にはPage Not Foundと表示されます)。なのでテーマなどを入れます。&lt;/p>
+&lt;h5 id="テーマを導入する">テーマを導入する
+&lt;/h5>&lt;p>今回は&lt;a class="link" href="https://github.com/nanxiaobei/hugo-paper" target="_blank" rel="noopener"
+>Paper&lt;/a>を導入します。&lt;/p>
+&lt;p>まず、ディレクトリにGitリポジトリを作成するために、&lt;code>git init&lt;/code>を実行します。&lt;/p>
+&lt;p>実行後、以下のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>操作が正しく完了している場合はディレクトリ内にthemesフォルダが作成されているはずです。次に、hugo.tomlの&lt;code>theme&lt;/code>という項目を以下のように書き換えます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">theme&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;paper&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>導入後、再度&lt;code>hugo serve&lt;/code>を実行して以下のような画面が表示されるか確認してください。
+&lt;img src="https://sonyakun.github.io/TechLog/TechLog/post/2024/04/26/built-blog-hugo/img/1.png"
+width="1920"
+height="911"
+srcset="https://sonyakun.github.io/TechLog/TechLog/post/2024/04/26/built-blog-hugo/img/1_hu10209097096186328058.png 480w, https://sonyakun.github.io/TechLog/TechLog/post/2024/04/26/built-blog-hugo/img/1_hu10191880076279990590.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="210"
+data-flex-basis="505px"
+>&lt;/p>
+&lt;p>表示された場合は次に進んでください。&lt;/p>
+&lt;h5 id="サイトの設定を変更する">サイトの設定を変更する
+&lt;/h5>&lt;p>baseurlを変更します。これが正しく設定されていないと、表示が崩れるので必ず変更してください。&lt;/p>
+&lt;p>&lt;code>hugo.toml&lt;/code>を開きます。以下のようになっている部分を書き換えてください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- baseURL = &amp;#39;https://example.org/&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ baseURL = &amp;#39;ウェブサイトのURL&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>次に、ウェブサイトのページ名(&lt;code>My New Hugo Site&lt;/code>となっている部分です)を変更します。同じく&lt;code>hugo.toml&lt;/code>内のtitleを書き換えてください。&lt;/p>
+&lt;h4 id="記事を追加する">記事を追加する
+&lt;/h4>&lt;p>以下のコマンドを実行することで記事を追加することが出来ます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo new content posts/タイトル/index.md
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>するとcontentフォルダにpostsフォルダが作成されます。そのフォルダの中に記事のフォルダが格納されます。&lt;/p>
+&lt;p>作成された.mdのファイルを開いてください。以下のようなテキストが記述されているはずです。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-md" data-lang="md">&lt;span class="line">&lt;span class="cl">+++
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">title = &amp;#39;はろーわーるど&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date = 2024-04-27T21:41:06+09:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">draft = true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+++
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>titleには記事のタイトル、draftはfalseにするとサイト上に表示されるようになります。&lt;/p>
+&lt;h5 id="urlにタイトルが使われないようにする">URLにタイトルが使われないようにする
+&lt;/h5>&lt;p>&lt;code>example.com/blog/はろーわーるど&lt;/code>のようになるのは格好悪いのでURLに記事名以外のテキストを設定します。&lt;/p>
+&lt;p>設定するには、以下のようにファイルを編集します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+++
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span>title = &amp;#39;はろーわーるど&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date = 2024-04-27T21:41:06+09:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">draft = true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ slug = &amp;#34;HelloWorld&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+++
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>するとさっきまで&lt;code>example.com/blog/はろーわーるど&lt;/code>のように日本語が使用されていたURLが&lt;code>example.com/blog/HelloWorld&lt;/code>のように変化します。&lt;/p>
+&lt;h4 id="ウェブサイトをビルドする">ウェブサイトをビルドする
+&lt;/h4>&lt;p>以下のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo --minify --gc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>するとpublicフォルダにhtmlが生成されているはず(&lt;code>hugo serve&lt;/code>などを実行している場合はすでにあるものが置き換えられている)です。&lt;/p>
+&lt;h3 id="カスタマイズする">カスタマイズする
+&lt;/h3>&lt;p>Hugoはテーマ自体をカスタマイズすることが可能です。&lt;/p>
+&lt;p>この辺りはうまく説明しきれないので検索してください。&lt;/p>
+&lt;h3 id="自分で指定したrobotstxtを使う">自分で指定したrobots.txtを使う
+&lt;/h3>&lt;p>&lt;code>hugo.toml&lt;/code>の&lt;code>enableRobotsTXT&lt;/code>を&lt;code>true&lt;/code>に変更(もしくは新しく値を追加)後、
+layoutsフォルダにrobots.txtを作成することで指定したrobots.txtを利用することが出来ます。&lt;/p></description></item><item><title>Misskey8ヶ月目の人がMisskeyのPythonラッパーを作っている話</title><link>https://sonyakun.github.io/TechLog/post/2023/12/23/mk-py-wrapper-231223/</link><pubDate>Sat, 23 Dec 2023 19:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/post/2023/12/23/mk-py-wrapper-231223/</guid><description>&lt;blockquote>
+&lt;p>この記事は&lt;a class="link" href="https://adventar.org/calendars/8742" target="_blank" rel="noopener"
+>Misskey Advent Calendar 2023
+&lt;/a>の24日目の記事です。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="はじめに">はじめに
+&lt;/h2>&lt;p>僕は&lt;a class="link" href="https://misspy.xyz" target="_blank" rel="noopener"
+>misspy&lt;/a>というライブラリを書いています。 今回はそのmisspyについて書いていこうと思います。&lt;/p>
+&lt;p>&lt;small>&lt;small>えっ？&lt;a href="https://misskey.io/notes/9fjxmyzzec">別の名前のライブラリ&lt;/a>作ってたじゃないかって？&lt;s>&lt;a href="https://github.com/yupix/MiPAC">このライブラリ&lt;/a>と名前が紛らわしいから消しました&amp;hellip;(ちなみに&lt;a class="link" href="https://zenn.dev/yupix/articles/2ff668232f1ef3" target="_blank" rel="noopener"
+>Misskey Advent Calendar 9日目&lt;/a>の方です)&lt;/s>&lt;/small>&lt;/small>&lt;/p>
+&lt;h2 id="なんで作った">なんで作った
+&lt;/h2>&lt;p>なぜ作ったかを簡単に言うと、&lt;strong>Misskey.pyが非同期処理に対応していないから&lt;/strong>(4.1.0現在)です。&lt;/p>
+&lt;p>別にそれだけなら外部で実装すればいいんですけど、僕は面倒臭いので自分でライブラリごと作ることにしました。それに、一から自分で作ったほうが自分が思うように作れるので。(コードがいまいちわからないもの(ほかの方が作ったライブラリとか)を改造することは苦手なんです&amp;hellip;)&lt;/p>
+&lt;h2 id="misspyのソースコードについて">misspyのソースコードについて
+&lt;/h2>&lt;h4 id="最初期のmisspyのコード">最初期のmisspyのコード
+&lt;/h4>&lt;p>&lt;img src="https://sonyakun.github.io/TechLog/TechLog/post/2023/12/23/mk-py-wrapper-231223/first_misspy.png"
+width="581"
+height="450"
+srcset="https://sonyakun.github.io/TechLog/TechLog/post/2023/12/23/mk-py-wrapper-231223/first_misspy_hu10843185506942936732.png 480w, https://sonyakun.github.io/TechLog/TechLog/post/2023/12/23/mk-py-wrapper-231223/first_misspy_hu14199237386811192067.png 1024w"
+loading="lazy"
+alt="最初期のmisspyのコード"
+class="gallery-image"
+data-flex-grow="129"
+data-flex-basis="309px"
+>&lt;/p>
+&lt;p>※これは何も出力しません。タイムラインに接続してないので。&lt;/p>
+&lt;p>最初期のmisspyは今のような形式ではなく、classに特定の名称の関数を作成してその下にコードを書く&lt;strong>脳筋実装&lt;/strong>でした。また、httpxを非同期リクエストに利用していたので今より多少速度は遅かったと思います。&lt;/p>
+&lt;p>当時の僕はクラス式の実装(?)に納得がいかなかったみたいで、新しく&lt;a class="link" href="https://github.com/misspy-dev/misspy/blob/master/misspy/hook.py" target="_blank" rel="noopener"
+>hook&lt;/a>っていうクラスを追加しました。&lt;/p>
+&lt;p>リクエスト部分とWebSocket部分を&lt;a class="link" href="https://github.com/misspy-dev/core" target="_blank" rel="noopener"
+>misspy-dev/core&lt;/a>に移動して、httpの非同期リクエスト部分をaiohttpに置き換えて高速化しました。websocketはaiohttpが対応していたのですが、調子が良くないので今のところwebsocketsを利用しています。&lt;/p>
+&lt;p>だけど、当時の僕はそれに納得がいかなかったみたいで、新しく&lt;a class="link" href="https://github.com/misspy-dev/misspy/blob/master/misspy/hook.py" target="_blank" rel="noopener"
+>hook&lt;/a>っていうクラスを追加しました(何で！？)。これもやっぱり脳筋実装です。&lt;/p>
+&lt;h3 id="現在">現在
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">misspy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">misspy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Bot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;misskey.io&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_ready&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">await&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">misspy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">localTimeline&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_note&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;------------&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;------------&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_hook&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;ready&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">on_ready&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_hook&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;note&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">on_note&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>いろいろした結果、こんな感じになりました。
+ちなみに、こんな構造になったことで、別のファイルに関数を分けておくことができるようになりました。
+ただし、botにアクセスできないと何もできないので、ちょっと改良中です。&lt;/p>
+&lt;h2 id="今後やりたいこと">今後やりたいこと
+&lt;/h2>&lt;p>今後は、上に書いたように、discord.pyのCogsとextensionのように別ファイルでもbotを利用できるようにしたりしたいと思います。&lt;/p></description></item><item><title>Hexoを使ってブログを構築</title><link>https://sonyakun.github.io/TechLog/post/2023/12/07/hexo%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E6%A7%8B%E7%AF%89/</link><pubDate>Thu, 07 Dec 2023 17:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/post/2023/12/07/hexo%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E6%A7%8B%E7%AF%89/</guid><description>&lt;p>HexoっていうSSGが気になったので試してみた。&lt;/p>
+&lt;p>えっ？なんで学生が深夜にこんなことしてるかって？ &lt;del>おっと、それ以上はいけない&lt;/del>&lt;/p>
+&lt;h2 id="hexoってなんだよ">Hexoってなんだよ
+&lt;/h2>&lt;p>Node.js製の強力なブログフレームワークらしいです。&lt;/p>
+&lt;p>プラグインで拡張できたり、もちろんテーマも使えます。&lt;/p>
+&lt;h3 id="テーマ">テーマ
+&lt;/h3>&lt;p>&lt;a class="link" href="https://hexo.io/themes/" target="_blank" rel="noopener"
+>公式サイト&lt;/a>だったり&lt;a class="link" href="https://github.com/topics/hexo-theme" target="_blank" rel="noopener"
+>GitHubのトピック&lt;/a>だったりで探すのがおすすめ。&lt;/p>
+&lt;p>おすすめなのは、&lt;a class="link" href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener"
+>Icarus&lt;/a>です。日本でも使っている方がたまにいるのでトラブルが起きてもどうにかなりそうなので&amp;hellip;&lt;/p>
+&lt;h3 id="プラグイン">プラグイン
+&lt;/h3>&lt;p>&lt;del>&lt;code>sitemap.xml&lt;/code>を自動生成してくれるhexo-generator-sitemapとかは入れたほうがいいと思います。&lt;/del> hexo-generator-sitemapだとGoogleに登録できませんでした&amp;hellip;ちゃんと動く&lt;a class="link" href="https://github.com/ludoviclefevre/hexo-generator-seo-friendly-sitemap" target="_blank" rel="noopener"
+>&lt;code>hexo-generator-seo-friendly-sitemap&lt;/code>&lt;/a>がいいと思います。&lt;/p>
+&lt;h3 id="構築">構築
+&lt;/h3>&lt;p>※Node.jsがインストールされている前提で進みます。&lt;/p>
+&lt;p>まず、&lt;code>npm install hexo-cli -g&lt;/code>でHexoのCLIをインストールします。&lt;/p>
+&lt;p>インストールしたら、ブログ用のファイルを生成したいディレクトリに移動して、&lt;code>hexo init .&lt;/code>を実行します。&lt;/p>
+&lt;p>以下のようなファイル構成になると思います。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">├─.github
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─node_modules
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └─...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─scaffolds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─source
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └─_posts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─package.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└─themes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>一応この状態でも_posts直下に.mdを作成してyarn serverすれば起動できます。&lt;/p>
+&lt;p>でもせっかくなので、テーマを変えてみます。&lt;/p>
+&lt;h3 id="テーマを変える">テーマを変える
+&lt;/h3>&lt;p>今回は、Icarusを利用します。
+&lt;code>npm install hexo-theme-icarus&lt;/code>して&lt;code>hexo config theme icarus&lt;/code>します。
+でも、テーマによっては中華フォント(Microsoft YaHeiなど)になっている場合があります。&lt;/p>
+&lt;p>icarusなら&lt;code>node_modules\hexo-theme-icarus\include\style\base.styl&lt;/code>に行き、Microsoft Yaheiと書いてある部分をすべてsans-serifなどに変更します。そうすれば治ります。&lt;/p>
+&lt;h3 id="記事を書くときに覚えておくといいこと">記事を書くときに覚えておくといいこと
+&lt;/h3>&lt;p>タグやカテゴリーは以下のように書く。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Hexo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">date&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="ld">0000-00-00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">00&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">00&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">categories&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">tech&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">tags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">hexo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="カスタマイズ">カスタマイズ
+&lt;/h3>&lt;p>テーマは&lt;code>_config.{テーマ名}.yml&lt;/code>である程度カスタマイズできるようです。&lt;/p>
+&lt;p>方法は自分で調べてください(丸投げ)&lt;/p>
+&lt;h3 id="生成">生成
+&lt;/h3>&lt;p>htmlを出力するには&lt;code>hexo generate&lt;/code>を入力してください。入力すると、publicフォルダにhtmlが生成されます。&lt;/p>
+&lt;p>&lt;small>めっちゃ書くのつかれた...&lt;/small>&lt;/p></description></item><item><title>Archives</title><link>https://sonyakun.github.io/TechLog/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/archives/</guid><description/></item><item><title>Links</title><link>https://sonyakun.github.io/TechLog/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/links/</guid><description/></item><item><title>Search</title><link>https://sonyakun.github.io/TechLog/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/search/</guid><description/></item><item><title>このブログについて</title><link>https://sonyakun.github.io/TechLog/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/about/</guid><description>&lt;h1 id="about">About
+&lt;/h1>&lt;p>プログラム関連のメモや記事を載せるためのブログです。混ぜたくないので趣味関連の記事は&lt;a class="link" href="https://vr.sonyakun.com" target="_blank" rel="noopener"
+>いろいろおくところ&lt;/a>で書いてます。&lt;/p>
+&lt;h2 id="accounts-and-contact">Accounts and Contact
+&lt;/h2>&lt;h3 id="mail">Mail
+&lt;/h3>&lt;p>スパム対策のためメールアドレスは&lt;a class="link" href="https://mailhide.io/e/HKD8fI1s" target="_blank" rel="noopener"
+>こちら&lt;/a>からご確認ください。 ※このブログ関連の問い合わせは&lt;a class="link" href="https://misskey.io/@sonyakun" target="_blank" rel="noopener"
+>@sonyakun&lt;/a>かこちらへお願いします。&lt;/p>
+&lt;h3 id="twitter">Twitter
+&lt;/h3>&lt;ul>
+&lt;li>&lt;a class="link" href="https://twitter.com/sonyakun1" target="_blank" rel="noopener"
+>@sonyakun1&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://twitter.com/sonya4327" target="_blank" rel="noopener"
+>@sonya4327&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="fediverse">Fediverse
+&lt;/h3>&lt;h4 id="misskeyio">Misskey.io
+&lt;/h4>&lt;ul>
+&lt;li>&lt;a class="link" href="https://misskey.io/@sonyakun" target="_blank" rel="noopener"
+>@sonyakun&lt;/a> ※このブログ関連の問い合わせはこちらか&lt;a class="link" href="#mail" >メール&lt;/a>へお願いします。&lt;/li>
+&lt;li>&lt;a class="link" href="https://misskey.io/@sonyakun_vr" target="_blank" rel="noopener"
+>@sonyakun_vr&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="misskeydev">Misskey.dev
+&lt;/h4>&lt;ul>
+&lt;li>&lt;a class="link" href="https://misskey.dev/@sonyakun" target="_blank" rel="noopener"
+>@sonyakun&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="sushiski">sushi.ski
+&lt;/h4>&lt;ul>
+&lt;li>&lt;a class="link" href="https://sushi.ski/@sonyakun" target="_blank" rel="noopener"
+>@sonyakun&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="fedibird">Fedibird
+&lt;/h4>&lt;ul>
+&lt;li>&lt;a class="link" href="https://fedibird.com/@sonyakun" target="_blank" rel="noopener"
+>@sonyakun&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="discord">Discord
+&lt;/h3>&lt;ul>
+&lt;li>&lt;a class="link" href="https://discord.com/users/1192126533255573635" target="_blank" rel="noopener"
+>@sonyakun&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://discord.com/users/875651011950297118" target="_blank" rel="noopener"
+>@sonyakun_dev&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="データ収集について">データ収集について
+&lt;/h2>&lt;p>このウェブサイトはアクセス数の把握のためにGoogle Analyticsを利用しています。ご了承ください。&lt;/p></description></item></channel></rss>

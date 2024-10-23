@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hexo on TechLog</title><link>https://sonyakun.github.io/TechLog/categories/hexo/</link><description>Recent content in Hexo on TechLog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Thu, 07 Dec 2023 17:00:00 +0000</lastBuildDate><atom:link href="https://sonyakun.github.io/TechLog/categories/hexo/index.xml" rel="self" type="application/rss+xml"/><item><title>Hexoを使ってブログを構築</title><link>https://sonyakun.github.io/TechLog/post/2023/12/07/hexo%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E6%A7%8B%E7%AF%89/</link><pubDate>Thu, 07 Dec 2023 17:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/post/2023/12/07/hexo%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E6%A7%8B%E7%AF%89/</guid><description>&lt;p>HexoっていうSSGが気になったので試してみた。&lt;/p>
+&lt;p>えっ？なんで学生が深夜にこんなことしてるかって？ &lt;del>おっと、それ以上はいけない&lt;/del>&lt;/p>
+&lt;h2 id="hexoってなんだよ">Hexoってなんだよ
+&lt;/h2>&lt;p>Node.js製の強力なブログフレームワークらしいです。&lt;/p>
+&lt;p>プラグインで拡張できたり、もちろんテーマも使えます。&lt;/p>
+&lt;h3 id="テーマ">テーマ
+&lt;/h3>&lt;p>&lt;a class="link" href="https://hexo.io/themes/" target="_blank" rel="noopener"
+>公式サイト&lt;/a>だったり&lt;a class="link" href="https://github.com/topics/hexo-theme" target="_blank" rel="noopener"
+>GitHubのトピック&lt;/a>だったりで探すのがおすすめ。&lt;/p>
+&lt;p>おすすめなのは、&lt;a class="link" href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener"
+>Icarus&lt;/a>です。日本でも使っている方がたまにいるのでトラブルが起きてもどうにかなりそうなので&amp;hellip;&lt;/p>
+&lt;h3 id="プラグイン">プラグイン
+&lt;/h3>&lt;p>&lt;del>&lt;code>sitemap.xml&lt;/code>を自動生成してくれるhexo-generator-sitemapとかは入れたほうがいいと思います。&lt;/del> hexo-generator-sitemapだとGoogleに登録できませんでした&amp;hellip;ちゃんと動く&lt;a class="link" href="https://github.com/ludoviclefevre/hexo-generator-seo-friendly-sitemap" target="_blank" rel="noopener"
+>&lt;code>hexo-generator-seo-friendly-sitemap&lt;/code>&lt;/a>がいいと思います。&lt;/p>
+&lt;h3 id="構築">構築
+&lt;/h3>&lt;p>※Node.jsがインストールされている前提で進みます。&lt;/p>
+&lt;p>まず、&lt;code>npm install hexo-cli -g&lt;/code>でHexoのCLIをインストールします。&lt;/p>
+&lt;p>インストールしたら、ブログ用のファイルを生成したいディレクトリに移動して、&lt;code>hexo init .&lt;/code>を実行します。&lt;/p>
+&lt;p>以下のようなファイル構成になると思います。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">├─.github
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─node_modules
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └─...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─scaffolds
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─source
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └─_posts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├─package.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└─themes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>一応この状態でも_posts直下に.mdを作成してyarn serverすれば起動できます。&lt;/p>
+&lt;p>でもせっかくなので、テーマを変えてみます。&lt;/p>
+&lt;h3 id="テーマを変える">テーマを変える
+&lt;/h3>&lt;p>今回は、Icarusを利用します。
+&lt;code>npm install hexo-theme-icarus&lt;/code>して&lt;code>hexo config theme icarus&lt;/code>します。
+でも、テーマによっては中華フォント(Microsoft YaHeiなど)になっている場合があります。&lt;/p>
+&lt;p>icarusなら&lt;code>node_modules\hexo-theme-icarus\include\style\base.styl&lt;/code>に行き、Microsoft Yaheiと書いてある部分をすべてsans-serifなどに変更します。そうすれば治ります。&lt;/p>
+&lt;h3 id="記事を書くときに覚えておくといいこと">記事を書くときに覚えておくといいこと
+&lt;/h3>&lt;p>タグやカテゴリーは以下のように書く。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Hexo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">date&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="ld">0000-00-00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">00&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">00&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">categories&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">tech&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">tags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">hexo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="カスタマイズ">カスタマイズ
+&lt;/h3>&lt;p>テーマは&lt;code>_config.{テーマ名}.yml&lt;/code>である程度カスタマイズできるようです。&lt;/p>
+&lt;p>方法は自分で調べてください(丸投げ)&lt;/p>
+&lt;h3 id="生成">生成
+&lt;/h3>&lt;p>htmlを出力するには&lt;code>hexo generate&lt;/code>を入力してください。入力すると、publicフォルダにhtmlが生成されます。&lt;/p>
+&lt;p>&lt;small>めっちゃ書くのつかれた...&lt;/small>&lt;/p></description></item></channel></rss>

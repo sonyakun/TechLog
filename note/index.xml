@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Notes on TechLog</title><link>https://sonyakun.github.io/TechLog/note/</link><description>Recent content in Notes on TechLog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Sat, 27 Apr 2024 16:43:38 +0000</lastBuildDate><atom:link href="https://sonyakun.github.io/TechLog/note/index.xml" rel="self" type="application/rss+xml"/><item><title>自作ソフトウェア</title><link>https://sonyakun.github.io/TechLog/note/2024/04/27/mysoftwares/</link><pubDate>Sat, 27 Apr 2024 16:43:38 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/note/2024/04/27/mysoftwares/</guid><description>&lt;h2 id="brightness-controler">Brightness-Controler
+&lt;/h2>&lt;p>デスクトップ版のWindowsだといちいちモニター側を操作しないと輝度調節ができないのが嫌なので作ったやつです。基本的に僕だけが使う前提なのでマルチモニターには対応していません。ウィンドウを閉じるとタスクトレイにアイコンが表示されるのでそれを右クリックして「Show UI」を押すと再度ウィンドウが表示されます。証明書がないのとNuitkaでビルドしているためアンチウィルスソフトに隔離される可能性があります。&lt;/p>
+&lt;p>src以下にあるのはソースコードです。&lt;a class="link" href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener"
+>MITライセンス&lt;/a>の範囲内でご自由にご利用ください。&lt;/p>
+&lt;p>ちなみにGitHubからも利用できます。&lt;a class="link" href="https://github.com/sonyakun/Brightness-Controler" target="_blank" rel="noopener"
+>ここ&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/72x72/1f5a5.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>↑使ってるアイコンの画像はTwemojiのやつです&lt;/p>
+&lt;p>&lt;a class="link" href="https://drive.google.com/file/d/147a4-G6v_Z6BFLNtSK3HG8ARXzK3Bzyf/view?usp=sharing" target="_blank" rel="noopener"
+>Download&lt;/a>&lt;/p></description></item></channel></rss>

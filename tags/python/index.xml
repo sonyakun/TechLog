@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on TechLog</title><link>https://sonyakun.github.io/TechLog/tags/python/</link><description>Recent content in Python on TechLog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Sat, 23 Dec 2023 19:00:00 +0000</lastBuildDate><atom:link href="https://sonyakun.github.io/TechLog/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Misskey8ヶ月目の人がMisskeyのPythonラッパーを作っている話</title><link>https://sonyakun.github.io/TechLog/post/2023/12/23/mk-py-wrapper-231223/</link><pubDate>Sat, 23 Dec 2023 19:00:00 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/post/2023/12/23/mk-py-wrapper-231223/</guid><description>&lt;blockquote>
+&lt;p>この記事は&lt;a class="link" href="https://adventar.org/calendars/8742" target="_blank" rel="noopener"
+>Misskey Advent Calendar 2023
+&lt;/a>の24日目の記事です。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="はじめに">はじめに
+&lt;/h2>&lt;p>僕は&lt;a class="link" href="https://misspy.xyz" target="_blank" rel="noopener"
+>misspy&lt;/a>というライブラリを書いています。 今回はそのmisspyについて書いていこうと思います。&lt;/p>
+&lt;p>&lt;small>&lt;small>えっ？&lt;a href="https://misskey.io/notes/9fjxmyzzec">別の名前のライブラリ&lt;/a>作ってたじゃないかって？&lt;s>&lt;a href="https://github.com/yupix/MiPAC">このライブラリ&lt;/a>と名前が紛らわしいから消しました&amp;hellip;(ちなみに&lt;a class="link" href="https://zenn.dev/yupix/articles/2ff668232f1ef3" target="_blank" rel="noopener"
+>Misskey Advent Calendar 9日目&lt;/a>の方です)&lt;/s>&lt;/small>&lt;/small>&lt;/p>
+&lt;h2 id="なんで作った">なんで作った
+&lt;/h2>&lt;p>なぜ作ったかを簡単に言うと、&lt;strong>Misskey.pyが非同期処理に対応していないから&lt;/strong>(4.1.0現在)です。&lt;/p>
+&lt;p>別にそれだけなら外部で実装すればいいんですけど、僕は面倒臭いので自分でライブラリごと作ることにしました。それに、一から自分で作ったほうが自分が思うように作れるので。(コードがいまいちわからないもの(ほかの方が作ったライブラリとか)を改造することは苦手なんです&amp;hellip;)&lt;/p>
+&lt;h2 id="misspyのソースコードについて">misspyのソースコードについて
+&lt;/h2>&lt;h4 id="最初期のmisspyのコード">最初期のmisspyのコード
+&lt;/h4>&lt;p>&lt;img src="https://sonyakun.github.io/TechLog/TechLog/post/2023/12/23/mk-py-wrapper-231223/first_misspy.png"
+width="581"
+height="450"
+srcset="https://sonyakun.github.io/TechLog/TechLog/post/2023/12/23/mk-py-wrapper-231223/first_misspy_hu10843185506942936732.png 480w, https://sonyakun.github.io/TechLog/TechLog/post/2023/12/23/mk-py-wrapper-231223/first_misspy_hu14199237386811192067.png 1024w"
+loading="lazy"
+alt="最初期のmisspyのコード"
+class="gallery-image"
+data-flex-grow="129"
+data-flex-basis="309px"
+>&lt;/p>
+&lt;p>※これは何も出力しません。タイムラインに接続してないので。&lt;/p>
+&lt;p>最初期のmisspyは今のような形式ではなく、classに特定の名称の関数を作成してその下にコードを書く&lt;strong>脳筋実装&lt;/strong>でした。また、httpxを非同期リクエストに利用していたので今より多少速度は遅かったと思います。&lt;/p>
+&lt;p>当時の僕はクラス式の実装(?)に納得がいかなかったみたいで、新しく&lt;a class="link" href="https://github.com/misspy-dev/misspy/blob/master/misspy/hook.py" target="_blank" rel="noopener"
+>hook&lt;/a>っていうクラスを追加しました。&lt;/p>
+&lt;p>リクエスト部分とWebSocket部分を&lt;a class="link" href="https://github.com/misspy-dev/core" target="_blank" rel="noopener"
+>misspy-dev/core&lt;/a>に移動して、httpの非同期リクエスト部分をaiohttpに置き換えて高速化しました。websocketはaiohttpが対応していたのですが、調子が良くないので今のところwebsocketsを利用しています。&lt;/p>
+&lt;p>だけど、当時の僕はそれに納得がいかなかったみたいで、新しく&lt;a class="link" href="https://github.com/misspy-dev/misspy/blob/master/misspy/hook.py" target="_blank" rel="noopener"
+>hook&lt;/a>っていうクラスを追加しました(何で！？)。これもやっぱり脳筋実装です。&lt;/p>
+&lt;h3 id="現在">現在
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">misspy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">misspy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Bot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;misskey.io&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_ready&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">await&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">misspy&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">localTimeline&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">async&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">on_note&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;------------&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;------------&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_hook&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;ready&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">on_ready&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_hook&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;note&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">on_note&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>いろいろした結果、こんな感じになりました。
+ちなみに、こんな構造になったことで、別のファイルに関数を分けておくことができるようになりました。
+ただし、botにアクセスできないと何もできないので、ちょっと改良中です。&lt;/p>
+&lt;h2 id="今後やりたいこと">今後やりたいこと
+&lt;/h2>&lt;p>今後は、上に書いたように、discord.pyのCogsとextensionのように別ファイルでもbotを利用できるようにしたりしたいと思います。&lt;/p></description></item></channel></rss>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on TechLog</title><link>https://sonyakun.github.io/TechLog/categories/hugo/</link><description>Recent content in Hugo on TechLog</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Fri, 26 Apr 2024 14:35:53 +0000</lastBuildDate><atom:link href="https://sonyakun.github.io/TechLog/categories/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>Go製の静的サイトジェネレーター「Hugo」を使ってブログサイトを構築する</title><link>https://sonyakun.github.io/TechLog/post/2024/04/26/built-blog-hugo/</link><pubDate>Fri, 26 Apr 2024 14:35:53 +0000</pubDate><guid>https://sonyakun.github.io/TechLog/post/2024/04/26/built-blog-hugo/</guid><description>&lt;p>ブログに利用しているSSGをHugoに移行したので記事にします。&lt;/p>
+&lt;h2 id="hugoとは">Hugoとは
+&lt;/h2>&lt;p>Goで書かれた「ウェブサイトを構築するための世界最速のフレームワーク」 (gohugo.ioより)らしいです。&lt;/p>
+&lt;h3 id="テーマ">テーマ
+&lt;/h3>&lt;p>&lt;a class="link" href="https://themes.gohugo.io/" target="_blank" rel="noopener"
+>公式サイト&lt;/a>はあまりおすすめしません。人気順に出来なかったりします。&lt;a class="link" href="https://github.com/topics/hugo-theme" target="_blank" rel="noopener"
+>GitHubのトピック&lt;/a>で探すのが個人的におすすめです。&lt;/p>
+&lt;p>このブログでは&lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>Stack&lt;/a>を利用しています。&lt;/p>
+&lt;h3 id="プラグイン-アドオン">プラグイン (アドオン)
+&lt;/h3>&lt;p>Hugoにそれらしき項目は見当たりませんでした。
+でも、標準でサイトマップなどを生成することができるので機能には困らないと思います。&lt;/p>
+&lt;h3 id="構築">構築
+&lt;/h3>&lt;blockquote>
+&lt;p>ほとんど&lt;a class="link" href="https://gohugo.io/getting-started/quick-start/" target="_blank" rel="noopener"
+>Hugoのドキュメント&lt;/a>からの抜粋です。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="必要なもの">必要なもの
+&lt;/h4>&lt;ul>
+&lt;li>Git&lt;/li>
+&lt;/ul>
+&lt;h4 id="インストール">インストール
+&lt;/h4>&lt;p>ここではWindowsで利用する場合の手順を書きます。他のOSの場合は&lt;a class="link" href="https://gohugo.io/installation/" target="_blank" rel="noopener"
+>公式サイト&lt;/a>から確認してください。&lt;/p>
+&lt;h5 id="scoopを使う-推奨">scoopを使う (推奨)
+&lt;/h5>&lt;p>scoopを使う場合は、勝手にパスが通るのでおすすめです。&lt;/p>
+&lt;p>以下のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">scoop install hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="サイトを作成する">サイトを作成する
+&lt;/h4>&lt;blockquote class="md-hint warning">
+&lt;p>⚠ &lt;strong>注意&lt;/strong>&lt;/p>
+&lt;p>Windowsユーザーの場合はWindows PowerShellやコマンドプロンプトは利用しないで&lt;a class="link" href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4" target="_blank" rel="noopener"
+>PowerShell&lt;/a>や&lt;a class="link" href="https://gitforwindows.org/" target="_blank" rel="noopener"
+>Git Bash&lt;/a>を利用してください。&lt;/p>
+&lt;p>※ここで言う&lt;a class="link" href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4" target="_blank" rel="noopener"
+>PowerShell&lt;/a>はWindows PowerShellとは異なるアプリケーションです。&lt;/p>
+&lt;/blockquote>
+&lt;p>以下のコマンドを実行してHugoでウェブサイトを作成します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo new site hugo-site
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>作成後、以下のコマンドで作成したウェブサイトのディレクトリに移動します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cd hugo-site
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ディレクトリはこのような構造になっていると思います。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── archetypes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └── default.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── assets
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── content
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── i18n
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── layouts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── static
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── themes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── hugo.toml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>この状態で&lt;code>hugo serve&lt;/code>を実行しても何もでてきません (正確にはPage Not Foundと表示されます)。なのでテーマなどを入れます。&lt;/p>
+&lt;h5 id="テーマを導入する">テーマを導入する
+&lt;/h5>&lt;p>今回は&lt;a class="link" href="https://github.com/nanxiaobei/hugo-paper" target="_blank" rel="noopener"
+>Paper&lt;/a>を導入します。&lt;/p>
+&lt;p>まず、ディレクトリにGitリポジトリを作成するために、&lt;code>git init&lt;/code>を実行します。&lt;/p>
+&lt;p>実行後、以下のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>操作が正しく完了している場合はディレクトリ内にthemesフォルダが作成されているはずです。次に、hugo.tomlの&lt;code>theme&lt;/code>という項目を以下のように書き換えます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">theme&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;paper&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>導入後、再度&lt;code>hugo serve&lt;/code>を実行して以下のような画面が表示されるか確認してください。
+&lt;img src="https://sonyakun.github.io/TechLog/TechLog/post/2024/04/26/built-blog-hugo/img/1.png"
+width="1920"
+height="911"
+srcset="https://sonyakun.github.io/TechLog/TechLog/post/2024/04/26/built-blog-hugo/img/1_hu10209097096186328058.png 480w, https://sonyakun.github.io/TechLog/TechLog/post/2024/04/26/built-blog-hugo/img/1_hu10191880076279990590.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="210"
+data-flex-basis="505px"
+>&lt;/p>
+&lt;p>表示された場合は次に進んでください。&lt;/p>
+&lt;h5 id="サイトの設定を変更する">サイトの設定を変更する
+&lt;/h5>&lt;p>baseurlを変更します。これが正しく設定されていないと、表示が崩れるので必ず変更してください。&lt;/p>
+&lt;p>&lt;code>hugo.toml&lt;/code>を開きます。以下のようになっている部分を書き換えてください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- baseURL = &amp;#39;https://example.org/&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ baseURL = &amp;#39;ウェブサイトのURL&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>次に、ウェブサイトのページ名(&lt;code>My New Hugo Site&lt;/code>となっている部分です)を変更します。同じく&lt;code>hugo.toml&lt;/code>内のtitleを書き換えてください。&lt;/p>
+&lt;h4 id="記事を追加する">記事を追加する
+&lt;/h4>&lt;p>以下のコマンドを実行することで記事を追加することが出来ます。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo new content posts/タイトル/index.md
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>するとcontentフォルダにpostsフォルダが作成されます。そのフォルダの中に記事のフォルダが格納されます。&lt;/p>
+&lt;p>作成された.mdのファイルを開いてください。以下のようなテキストが記述されているはずです。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-md" data-lang="md">&lt;span class="line">&lt;span class="cl">+++
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">title = &amp;#39;はろーわーるど&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date = 2024-04-27T21:41:06+09:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">draft = true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+++
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>titleには記事のタイトル、draftはfalseにするとサイト上に表示されるようになります。&lt;/p>
+&lt;h5 id="urlにタイトルが使われないようにする">URLにタイトルが使われないようにする
+&lt;/h5>&lt;p>&lt;code>example.com/blog/はろーわーるど&lt;/code>のようになるのは格好悪いのでURLに記事名以外のテキストを設定します。&lt;/p>
+&lt;p>設定するには、以下のようにファイルを編集します。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+++
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span>title = &amp;#39;はろーわーるど&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date = 2024-04-27T21:41:06+09:00
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">draft = true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ slug = &amp;#34;HelloWorld&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+++
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>するとさっきまで&lt;code>example.com/blog/はろーわーるど&lt;/code>のように日本語が使用されていたURLが&lt;code>example.com/blog/HelloWorld&lt;/code>のように変化します。&lt;/p>
+&lt;h4 id="ウェブサイトをビルドする">ウェブサイトをビルドする
+&lt;/h4>&lt;p>以下のコマンドを実行してください。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo --minify --gc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>するとpublicフォルダにhtmlが生成されているはず(&lt;code>hugo serve&lt;/code>などを実行している場合はすでにあるものが置き換えられている)です。&lt;/p>
+&lt;h3 id="カスタマイズする">カスタマイズする
+&lt;/h3>&lt;p>Hugoはテーマ自体をカスタマイズすることが可能です。&lt;/p>
+&lt;p>この辺りはうまく説明しきれないので検索してください。&lt;/p>
+&lt;h3 id="自分で指定したrobotstxtを使う">自分で指定したrobots.txtを使う
+&lt;/h3>&lt;p>&lt;code>hugo.toml&lt;/code>の&lt;code>enableRobotsTXT&lt;/code>を&lt;code>true&lt;/code>に変更(もしくは新しく値を追加)後、
+layoutsフォルダにrobots.txtを作成することで指定したrobots.txtを利用することが出来ます。&lt;/p></description></item></channel></rss>
